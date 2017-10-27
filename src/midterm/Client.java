@@ -17,25 +17,29 @@ public class Client {
 	protected void startClient() {
 		try {
 			client = new Socket(URL, port);
+            System.out.println("opening output stream");
             out = new ObjectOutputStream(client.getOutputStream());
+            System.out.println("opened output stream");
+            
+            System.out.println("opening input stream");
+            in = new ObjectInputStream(client.getInputStream());
+            System.out.println("opened input stream");
             
             System.out.println("Sending messages");
-            System.out.println("opening in.read");
-            in = new ObjectInputStream(client.getInputStream());
-            System.out.println("opened in.read");
-            
     		sendLoginName("Jonathan");
     		sendChatMessage("This is a test", "Jonathan");
             System.out.println("Sent messages");
 
+            System.out.println("opening in.read");
             in.readObject();
+            System.out.println("opened in.read");
 
-            System.out.println("Started client");
+            System.out.println("Client started successfully");
 		} catch (IOException e) {
-			System.out.println("Unable to connect to server");
+			System.out.println("Client encountered an error during initialization");
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			System.out.println("Client encountered an error during initialization");
 		}
 
 	}
